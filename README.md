@@ -30,7 +30,7 @@ To get this project, you only need to clone it in your computer. You can open yo
 
 * clone this project:
     ```sh
-    git clone https://github.com/SergioManuelJob/TouristProject.git
+    git clone https://github.com/JohanSantanaGalvanJob/App-with-WebSockets.git
     ```
 
 Then go to the frontend folder by using:
@@ -66,7 +66,7 @@ Then go to the frontend folder by using:
     ```sh
     cd backend/
 
-    node index.mjs
+    npm start
     ```
 
 ---
@@ -79,15 +79,13 @@ The tecnology stack used for this project was:
 
 - NodeJS with Express.
 
-- Libraries used: SocketIO and recharts
+- Libraries used: SocketIO and Nodemon
 
 
 ## References
 
-- Libraries used: SocketIO and recharts.
-
 - SocketIO documentation: https://socket.io/docs/v4/
 
-- Recharts npm: https://www.npmjs.com/package/recharts
+- Nodemon: https://nodemon.io
 
-- Recharts codepen: https://codepen.io/kimjuny90/pen/WOOpgN
+- Based on: https://novu.co/blog/building-a-beautiful-kanban-board-with-node-js-react-and-websockets/

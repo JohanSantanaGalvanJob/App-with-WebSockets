@@ -3,26 +3,25 @@ import { Link } from "react-router-dom";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import socketIO from "socket.io-client";
 
-const TasksContainer = () => {
+const ProductsContainer = () => {
     const socket = socketIO.connect("http://localhost:4000");
-    const [tasks, setTasks] = useState({});
-    const user = localStorage.getItem("userId");
+    const [products, setProducts] = useState({});
 
     useEffect(() => {
-        function fetchTasks() {
+        function fetchProducts() {
             fetch("http://localhost:4000/api")
                 .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
-                    setTasks(data);
+                    setProducts(data);
                 });
         }
-        fetchTasks();
+        fetchProducts();
     }, []);
 
     useEffect(() => {
-		socket.on("tasks", (data) => {
-			setTasks(data);
+		socket.on("products", (data) => {
+			setProducts(data);
 		});
 	}, [socket]);
 
@@ -34,7 +33,7 @@ const TasksContainer = () => {
 		)
 			return;
 
-		socket.emit("taskDragged", {
+		socket.emit("productDragged", {
 			source,
 			destination,
 		});
@@ -43,17 +42,17 @@ const TasksContainer = () => {
     return (
         <div className='container'>
             <DragDropContext onDragEnd={handleDragEnd}>
-                {Object.entries(tasks).map((task) => (
+                {Object.entries(products).map((product) => (
                     <div
-                        className={`${task[1].title.toLowerCase()}__wrapper`}
-                        key={task[1].title}
+                        className={`${product[1].title.toLowerCase()}__wrapper`}
+                        key={product[1].title}
                     >
-                        <h3>{task[1].title}</h3>
-                        <div className={`${task[1].title.toLowerCase()}__container`}>
-                            <Droppable droppableId={task[1].title}>
+                        <h3>{product[1].title}</h3>
+                        <div className={`${product[1].title.toLowerCase()}__container`}>
+                            <Droppable droppableId={product[1].title}>
                                 {(provided) => (
                                     <div ref={provided.innerRef} {...provided.droppableProps}>
-                                        {task[1].items.map((item, index) => (
+                                        {product[1].items.map((item, index) => (
                                                 
                                             <Draggable
                                                 key={item.id}
@@ -65,11 +64,11 @@ const TasksContainer = () => {
                                                         ref={provided.innerRef}
                                                         {...provided.draggableProps}
                                                         {...provided.dragHandleProps}
-                                                        className={`${task[1].title.toLowerCase()}__items`}
+                                                        className={`${product[1].title.toLowerCase()}__items`}
                                                     >
                                                         <p>{item.title}</p>
                                                         <p className='comment'>
-                                                            <Link to={`/comments/${task[1].title}/${item.id}`}>
+                                                            <Link to={`/comments/${product[1].title}/${item.id}`}>
                                                                 {item.comments.length > 0
                                                                     ? `Ver Comentarios`
                                                                     : "Añadir un Comentario"}
@@ -91,4 +90,4 @@ const TasksContainer = () => {
     );
 };
 
-export default TasksContainer;
+export default ProductsContainer;

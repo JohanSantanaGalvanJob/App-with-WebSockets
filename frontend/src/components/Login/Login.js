@@ -9,7 +9,7 @@ const Login = () => {
 		e.preventDefault();
 		localStorage.setItem("userId", username);
 		setUsername("");
-		navigate("/task");
+		navigate("/product");
 	};
 	return (
 		<div className='login__container'>
